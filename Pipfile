@@ -9,6 +9,8 @@ setup-postgres = "bash scripts/2_setup_postgres.sh"
 load-mongo = "bash scripts/3_load_mongo.sh"
 load-postgres = "bash scripts/4_load_postgres.sh"
 setup-all = "bash scripts/setup_all.sh"
+query-postgres = "python scripts/query_postgres.py"
+query-mongo = "python scripts/query_mongodb.py"
 
 [packages]
 prisma = "*"
