@@ -79,8 +79,9 @@ QUERIES = {
         JOIN stocks s ON s.stock_id = sp.stock_id
         GROUP BY s.stock_id, s.ticker, s.company_name
         ORDER BY price_std_dev DESC;
-    """
+    """,
 }
+
 
 def run_queries():
     if not DATABASE_URL:
@@ -88,17 +89,22 @@ def run_queries():
 
     parsed = urllib.parse.urlparse(DATABASE_URL)
     query_params = urllib.parse.parse_qsl(parsed.query)
-    safe_params = [(k, v) for k, v in query_params if k not in ("schema", "connection_limit")]
-    clean_url = urllib.parse.urlunparse(parsed._replace(query=urllib.parse.urlencode(safe_params)))
+    safe_params = [
+        (k, v) for k, v in query_params if k not in ("schema", "connection_limit")
+    ]
+    clean_url = urllib.parse.urlunparse(
+        parsed._replace(query=urllib.parse.urlencode(safe_params))
+    )
 
     conn = psycopg2.connect(clean_url)
-    
+
     for title, sql in QUERIES.items():
         print(f"\n{'-'*80}\n{title}\n{'-'*80}")
         df = pd.read_sql_query(sql, conn)
         print(df.to_string(index=False))
 
     conn.close()
+
 
 if __name__ == "__main__":
     run_queries()

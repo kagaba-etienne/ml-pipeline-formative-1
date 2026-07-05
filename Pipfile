@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [scripts]
+start = "uvicorn src.main:app --reload"
 setup-mongo = "bash scripts/1_setup_mongo.sh"
 setup-postgres = "bash scripts/2_setup_postgres.sh"
 load-mongo = "bash scripts/3_load_mongo.sh"
