@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+setup-mongo = "bash scripts/1_setup_mongo.sh"
+setup-postgres = "bash scripts/2_setup_postgres.sh"
+load-mongo = "bash scripts/3_load_mongo.sh"
+load-postgres = "bash scripts/4_load_postgres.sh"
+setup-all = "bash scripts/setup_all.sh"
+
+[packages]
+prisma = "*"
+fastapi = {extras = ["standard"], version = "*"}
+psycopg2-binary = "*"
+pandas = "*"
+python-dotenv = "*"
+pymongo = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"

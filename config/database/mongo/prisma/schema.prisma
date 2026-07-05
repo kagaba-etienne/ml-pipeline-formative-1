@@ -1,0 +1,38 @@
+generator client {
+  provider             = "prisma-client-py"
+  output               = "../../../../generated/mongo_client"
+  interface            = "asyncio"
+  recursive_type_depth = "5"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_DATABASE_URL")
+}
+
+model sectors {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  description String
+  name        String
+}
+
+model stock_prices {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  close_price Float
+  high_price  Float
+  low_price   Float
+  open_price  Float
+  stock_id    String   @db.ObjectId
+  trade_date  DateTime @db.Date
+  volume      Int
+
+  @@index([stock_id, trade_date(sort: Desc)], map: "stock_id_1_trade_date_-1")
+}
+
+model stocks {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  company_name    String
+  listed_exchange String
+  sector_id       String @db.ObjectId
+  ticker          String @unique(map: "ticker_1")
+}

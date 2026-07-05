@@ -1,0 +1,45 @@
+generator client {
+  provider                    = "prisma-client-py"
+  output                      = "../../../../generated/postgres_client"
+  interface                   = "asyncio"
+  enable_experimental_decimal = "true"
+  recursive_type_depth        = "5"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_DATABASE_URL")
+}
+
+model sectors {
+  sector_id   Int      @id @default(autoincrement())
+  sector_name String   @db.VarChar(100)
+  description String?
+  stocks      stocks[]
+}
+
+model stock_prices {
+  price_id    BigInt   @id @default(autoincrement())
+  stock_id    Int
+  trade_date  DateTime @db.Date
+  open_price  Decimal  @db.Decimal(12, 4)
+  high_price  Decimal  @db.Decimal(12, 4)
+  low_price   Decimal  @db.Decimal(12, 4)
+  close_price Decimal  @db.Decimal(12, 4)
+  volume      BigInt
+  stocks      stocks   @relation(fields: [stock_id], references: [stock_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_stock")
+
+  @@unique([stock_id, trade_date], map: "uq_stock_date")
+  @@index([stock_id, trade_date], map: "idx_stock_date")
+  @@index([trade_date], map: "idx_trade_date")
+}
+
+model stocks {
+  stock_id        Int            @id @default(autoincrement())
+  ticker          String         @unique @db.VarChar(10)
+  company_name    String         @db.VarChar(150)
+  sector_id       Int
+  listed_exchange String?        @default("NASDAQ") @db.VarChar(20)
+  stock_prices    stock_prices[]
+  sectors         sectors        @relation(fields: [sector_id], references: [sector_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_sector")
+}
