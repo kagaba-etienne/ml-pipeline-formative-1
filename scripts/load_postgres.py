@@ -10,7 +10,7 @@ load_dotenv()
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 DEFAULT_CSV_PATH = os.path.join(
-    PROJECT_ROOT, "dataset", "all_stocks_2006-01-01_to_2018-01-01.csv"
+    PROJECT_ROOT, "dataset", "stocks_dataset.csv"
 )
 
 DATABASE_URL = os.environ.get("POSTGRES_DATABASE_URL")
