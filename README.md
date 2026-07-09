@@ -1,5 +1,4 @@
 # ML Pipeline Formative 1
-
 This project uses FastAPI, PostgreSQL, and MongoDB. Follow these steps to get the project up and running.
 
 ## 1. Set up MongoDB Atlas
