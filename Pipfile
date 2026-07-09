@@ -20,6 +20,7 @@ psycopg2-binary = "*"
 pandas = "*"
 python-dotenv = "*"
 pymongo = "*"
+scikit-learn = "==1.6.1"
 
 [dev-packages]
 

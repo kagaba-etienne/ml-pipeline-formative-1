@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from src.database.clients import postgres_client
 from src.api.router import router as stock_prices_router
+from src.api.prediction import router as prediction_router
 
 
 @asynccontextmanager
@@ -21,6 +22,7 @@ app = FastAPI(
 )
 
 app.include_router(stock_prices_router)
+app.include_router(prediction_router)
 
 
 @app.get("/")

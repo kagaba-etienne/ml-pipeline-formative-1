@@ -62,3 +62,12 @@ pipenv run start
 ```
 
 The server will start running (usually at `http://127.0.0.1:8000`) and reload on code changes.
+
+## 8. Access API Documentation
+
+Once the server is running, FastAPI automatically generates interactive documentation for your API endpoints. You can access it at:
+
+- **Swagger UI**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- **ReDoc**: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+
+You can use the Swagger UI to view all available endpoints and test them (like the `/api/predict/` endpoint) directly from your browser.
